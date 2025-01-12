@@ -1,6 +1,6 @@
-import { Autocomplete, Box, Button, debounce, Grid, Grid2, Typography } from "@mui/material";
+import { Autocomplete, Box, debounce, Grid2 } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Predictions } from "../services/OlaMapsService";
 import parse from 'autosuggest-highlight/parse';
 import { PlacesSerice } from "../services/PlacesSerice";

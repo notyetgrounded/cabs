@@ -1,7 +1,7 @@
-import { Button, Card, colors } from "@mui/material";
+import { Button, Card } from "@mui/material";
 import SearchLocation from "./SearchLocation";
-import { useContext, useEffect, useState } from "react";
-import { LngLat, Map, Marker } from "maplibre-gl";
+import { useEffect, useState } from "react";
+import { Map, Marker } from "maplibre-gl";
 import { PlacesSerice } from "../services/PlacesSerice";
 import globalContainer from "../services/DependencyContainer";
 import { Predictions } from "../services/OlaMapsService";
@@ -9,8 +9,8 @@ import { Predictions } from "../services/OlaMapsService";
 export default function Location(props: any) {
   const [destination, setDesination] = useState<Predictions | null>(null);
   const [source, setSource] = useState<Predictions | null>(null);
-  const [destMarkerActive, setDestMarkerActive] = useState(true);
-  const [sourceMarkerActive, setSourceMarkerActive] = useState(false);
+  // const [destMarkerActive, setDestMarkerActive] = useState(true);
+  // const [sourceMarkerActive, setSourceMarkerActive] = useState(false);
   const [destMarker, setDestMarker] = useState<Marker>();
   const [sourceMarker, setSourceMarker] = useState<Marker>();
   const [myMap, setMyMap] = useState<Map>();

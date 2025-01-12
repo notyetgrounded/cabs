@@ -1,6 +1,10 @@
 import { asClass, createContainer } from "awilix"
 import { OlaMapsService } from "./OlaMapsService"
 import { PlacesSerice } from "./PlacesSerice"
+import { ChromeService } from "./ChromeService"
+import OlaService from "./UberService"
+import UberService from "./UberService"
+import { CabsService } from "./CabsSerivce"
 
  const globalContainer = createContainer()
  
@@ -9,6 +13,10 @@ import { PlacesSerice } from "./PlacesSerice"
 globalContainer.register({
     placesSerice:asClass(PlacesSerice),
     olaMapsService:asClass(OlaMapsService),
+    cabsNetworkingService: asClass(ChromeService).transient(),
+    olaService:asClass(OlaService),
+    uberService:asClass(UberService),
+    cabsService:asClass(CabsService)
     
 })
 
