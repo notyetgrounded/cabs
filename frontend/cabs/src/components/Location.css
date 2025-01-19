@@ -1,0 +1,19 @@
+.user-input-container{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    width: 100%;
+    z-index: 10;
+    align-items:center;
+}
+
+.input-field{
+    width: 60%;
+    margin-top: 1%;
+}
+
+.map-container{
+    height: 80vh;
+    width: 100%;
+    margin-top: 1%;
+}
