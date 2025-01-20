@@ -1,6 +1,6 @@
 export default function content():string {
   return `
-  console.log("injected the code");
+  alert("injected the code");
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       console.log("Message received in content script:", message);
 

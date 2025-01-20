@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import { useEffect, useMemo, useState } from "react";
 import { Predictions } from "../services/OlaMapsService";
 import parse from 'autosuggest-highlight/parse';
-import { PlacesSerice } from "../services/PlacesSerice";
+import { PlacesService } from "../services/PlacesService";
 import  globalContainer  from "../services/DependencyContainer";
 
 
@@ -21,7 +21,7 @@ export default function SearchLocation(props:any) {
           callback: (results?: readonly Predictions[]) => void
         ) => {
 
-          const placesSerice= globalContainer.resolve<PlacesSerice>("placesSerice")
+          const placesSerice= globalContainer.resolve<PlacesService>("placesSerice")
           placesSerice.getPlaces(request, callback);
         },
         400

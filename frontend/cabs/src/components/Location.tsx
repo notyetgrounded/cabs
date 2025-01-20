@@ -2,7 +2,7 @@ import { Button, Card } from "@mui/material";
 import SearchLocation from "./SearchLocation";
 import { useEffect, useState } from "react";
 import { Map, Marker } from "maplibre-gl";
-import { PlacesSerice } from "../services/PlacesSerice";
+import { PlacesService } from "../services/PlacesService";
 import globalContainer from "../services/DependencyContainer";
 import { Predictions } from "../services/OlaMapsService";
 
@@ -16,7 +16,7 @@ export default function Location(props: any) {
   const [myMap, setMyMap] = useState<Map>();
 
   useEffect(() => {
-    const placesSerice = globalContainer.resolve<PlacesSerice>("placesSerice");
+    const placesSerice = globalContainer.resolve<PlacesService>("placesSerice");
     const map = placesSerice.CreateMap({
       container: "map",
       center: [77.61648476788898, 12.931423492103944],

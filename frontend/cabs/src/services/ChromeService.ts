@@ -1,83 +1,70 @@
-import { from, of, switchMap } from "rxjs";
+import { from, map, of, switchMap, tap } from "rxjs";
 import content from "./Content";
 
 export class ChromeService {
+  private tabId: number = 0;
   constructor() {}
 
   initilize(baseUrl: string) {
     console.log("creating tab with url", baseUrl);
     return this.getOrCreateTab(baseUrl).pipe(
+      tap((tab) => (this.tabId = tab.id ?? 0)),
       switchMap((tab) => this.injectScript(tab.id ?? 0))
     );
   }
   private getOrCreateTab(baseUrl: string) {
     return from(chrome.tabs.query({ url: baseUrl })).pipe(
       switchMap((tabs) => {
+        console.log("tab count ", tabs.length, baseUrl);
         if (tabs.length > 0) return of(tabs[0]);
-        return chrome.tabs.create({ url: baseUrl });
+        return from(chrome.tabs.create({ url: baseUrl }));
       })
     );
   }
   private injectScript(tabId: number) {
-    console.log("injecting script in the tab", tabId);
-    return from(chrome.debugger.attach({ tabId: tabId }, "1.3")).pipe(
-      switchMap(() => {
-        return chrome.debugger.sendCommand(
-          { tabId: tabId },
-          "Runtime.evaluate",
-          {
-            expression: `
-  console.log("injected the code");
-    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-      console.log("Message received in content script:", message);
+    // Read the content.js script from the file system (you can use fetch or get URL)
 
-      // Handle different message types
-      switch (message.type) {
-        case "executeScript":
-          // Example: Execute a custom script
-          try {
-            const result = eval(message.script); 
-            console.log("Script executed:", result);
+    return from(
+      chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        func: () => {
+          // Safe script that doesn't depend on CSP
+          console.log("Executing script in the page context");
 
-            // Send the result back to the extension
-            sendResponse({ status: "success", result });
-          } catch (error: any) {
-            console.error("Error executing script:", error);
-            sendResponse({ status: "error", error: error.message });
-          }
-          break;
-
-        case "fetchData":
-          // Example: Perform a network fetch
-          fetch(message.url, { method: "GET" })
-            .then((response) => response.json())
-            .then((data) => {
-              console.log("Data fetched:", data);
-
-              // Send the data back to the extension
-              sendResponse({ status: "success", data });
-            })
-            .catch((error) => {
-              console.error("Error fetching data:", error);
-              sendResponse({ status: "error", error: error.message });
-            });
-          break;
-
-        default:
-          // Unknown message type
-          console.warn("Unknown message type:", message.type);
-          sendResponse({ status: "error", error: "Unknown message type" });
-      }
-
-      return true;
-    });`,
-          }
-        );
-      }),
-      switchMap(() => {
-        console.log("injected and detaching");
-        return chrome.debugger.detach({ tabId: tabId });
+          chrome.runtime.onMessage.addListener(
+            (message, sender, sendResponse) => {
+              console.log(message);
+              if (message.type === "fetchData") {
+                fetch(message.input, message.init)
+                  .then((response) => response.json())
+                  .then((data) => sendResponse({ status: "success", data }))
+                  .catch((error) =>
+                    sendResponse({ status: "error", error: error.message })
+                  );
+                return true; // Indicates async response
+              }
+            }
+          );
+        },
       })
     );
+  }
+
+  fetch<T>(input: RequestInfo | URL, init?: RequestInit) {
+    return from(
+      chrome.tabs.sendMessage(
+        this.tabId, // The target tab ID
+        { type: "fetchData", input, init } // Message payload
+      )
+    ).pipe(
+      map((reply) => {
+        console.log(reply);
+        return reply.data as T;
+      })
+    );
+  }
+
+  getCookie(url: string, name: string) {
+    return from(chrome.cookies.get({ url, name }));
   }
 }

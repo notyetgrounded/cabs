@@ -1,12 +1,11 @@
 {
-    "manifest_version": 3,
-    "name": "Promise-based Connect Example",
-    "version": "1.0.0",
-    "description": "Two-way communication between content and background scripts using Promise and chrome.runtime.connect",
-    "permissions": ["tabs","debugger"],
-    "host_permissions": ["https://book.olacabs.com/*","https://m.uber.com/*"],
-    "action": {
-      "default_popup": "index.html"
-    }
+  "manifest_version": 3,
+  "name": "Promise-based Connect Example",
+  "version": "1.0.0",
+  "description": "Two-way communication between content and background scripts using Promise and chrome.runtime.connect",
+  "permissions": ["tabs", "debugger", "scripting","cookies"],
+  "host_permissions": [ "<all_urls>"],
+  "action": {
+    "default_popup": "index.html"
   }
-  
+}

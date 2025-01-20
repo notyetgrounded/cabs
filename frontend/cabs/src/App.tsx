@@ -7,7 +7,7 @@ import globalContainer from "./services/DependencyContainer";
 
 function App() {
   const [_, _s] = useState(()=>{
-    chrome.tabs.query({url:'index.html'}).then((tabs)=>{
+    chrome.tabs.query({url:chrome.runtime.getURL('index.html')}).then((tabs)=>{
       if(tabs.length===0)
       chrome.tabs.create({url:chrome.runtime.getURL('index.html')})
     })
