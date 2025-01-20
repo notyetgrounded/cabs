@@ -1,8 +1,7 @@
 import { Map } from "maplibre-gl";
 import { OlaMapsService, Predictions } from "./OlaMapsService";
-import { Zoom } from "@mui/material";
 import  globalContainer  from "./DependencyContainer";
-export class PlacesSerice {
+export class PlacesService {
 constructor(){}
   getPlaces(input: string, callback: (result: Predictions[]) => void) {
     return globalContainer.resolve<OlaMapsService>("olaMapsService").getPlacesFromOla(input, callback);
