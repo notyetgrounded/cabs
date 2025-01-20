@@ -1,6 +1,5 @@
-import { Card } from "@mui/material";
 
-export default function CabSelection(props:any){
+export default function CabSelection(){
 
-    return (<Card></Card>)
+    return ;
 }

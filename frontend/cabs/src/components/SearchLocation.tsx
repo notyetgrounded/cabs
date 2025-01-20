@@ -5,6 +5,7 @@ import { Predictions } from "../services/OlaMapsService";
 import parse from 'autosuggest-highlight/parse';
 import { PlacesService } from "../services/PlacesService";
 import  globalContainer  from "../services/DependencyContainer";
+import './Location.css';
 
 
 export default function SearchLocation(props:any) {
@@ -63,7 +64,7 @@ export default function SearchLocation(props:any) {
     <>
       <Box
         component="form"
-        sx={{ "& > :not(style)": { m: 1, width: "25ch" } }}
+        className="input-field"
         noValidate
       >
         <Autocomplete
@@ -75,7 +76,7 @@ export default function SearchLocation(props:any) {
           }
           autoComplete
           value={value}
-          sx={{ width: 300 }}
+          sx={{ width: '100%' }}
           filterOptions={(x) => x}
           onChange={(event: any, newValue: Predictions | null) => {
             // setOptions(newValue?[newValue,...options]:options);

@@ -5,6 +5,7 @@ import { Map, Marker } from "maplibre-gl";
 import { PlacesService } from "../services/PlacesService";
 import globalContainer from "../services/DependencyContainer";
 import { Predictions } from "../services/OlaMapsService";
+import './Location.css';
 
 export default function Location(props: any) {
   const [destination, setDesination] = useState<Predictions | null>(null);
@@ -69,7 +70,7 @@ export default function Location(props: any) {
 
   return (
     <div>
-      <Card style={{zIndex:'10', width:'fit-content'}}>
+      <div  className="user-input-container">
         <SearchLocation
           label={"Destination"}
           location={setDesination}
@@ -85,8 +86,8 @@ export default function Location(props: any) {
             check pricing
           </Button>
         )}
-      </Card>
-      <div id="map" style={{ height: "90vh", width: "100vw" }}></div>
+      </div>
+      <div id="map" className="map-container"></div>
     </div>
   );
 }
