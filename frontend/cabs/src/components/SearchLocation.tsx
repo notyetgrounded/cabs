@@ -1,9 +1,9 @@
-import { Autocomplete, Box, Button, debounce, Grid, Grid2, Typography } from "@mui/material";
+import { Autocomplete, Box, debounce, Grid2 } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Predictions } from "../services/OlaMapsService";
 import parse from 'autosuggest-highlight/parse';
-import { PlacesSerice } from "../services/PlacesSerice";
+import { PlacesService } from "../services/PlacesService";
 import  globalContainer  from "../services/DependencyContainer";
 import './Location.css';
 
@@ -22,7 +22,7 @@ export default function SearchLocation(props:any) {
           callback: (results?: readonly Predictions[]) => void
         ) => {
 
-          const placesSerice= globalContainer.resolve<PlacesSerice>("placesSerice")
+          const placesSerice= globalContainer.resolve<PlacesService>("placesSerice")
           placesSerice.getPlaces(request, callback);
         },
         400
