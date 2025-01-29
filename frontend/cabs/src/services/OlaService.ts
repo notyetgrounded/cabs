@@ -5,6 +5,7 @@ import { map, tap, switchMap, of, retry, shareReplay } from "rxjs";
 import { OlaGetCabs } from "../models/OlaGetCabs.model";
 import { GetCabsRespose } from "../models/GetCabs.model";
 import { OlaPreBook } from "../models/OlaPreBook.model";
+import { Predictions } from "./OlaMapsService";
 
 export default class OlaService {
   private netorkManager!: ChromeService;
@@ -16,10 +17,10 @@ export default class OlaService {
     this.netorkManager.initilize(this.url).subscribe();
   }
 
-  getCabs(source: LngLat, destination: LngLat) {
+  getCabs(source: Predictions | null, destination: Predictions | null) {
     return this.netorkManager
       .fetch<OlaGetCabs>(
-        `https://book.olacabs.com/data-api/category-fare/p2p?pickupLat=${source.lat}&pickupLng=${source.lng}&pickupMode=NOW&dropLat=${destination.lat}&dropLng=${destination.lng}&silent=false&suggestPickup=true`
+        `https://book.olacabs.com/data-api/category-fare/p2p?pickupLat=${source?.geometry?.location?.lat}&pickupLng=${source?.geometry?.location?.lng}&pickupMode=NOW&dropLat=${destination?.geometry?.location?.lat}&dropLng=${destination?.geometry?.location?.lng}&silent=false&suggestPickup=true`
       )
       .pipe(map((data) => this.transformOlaResponse(data)));
   }

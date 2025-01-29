@@ -4,7 +4,7 @@ import { PlacesService } from "./PlacesService"
 import { ChromeService } from "./ChromeService"
 import OlaService from "./UberService"
 import UberService from "./UberService"
-import { CabsService } from "./CabsSerivce"
+import CabsService from "./CabsSerivce"
 
  const globalContainer = createContainer()
  
@@ -15,7 +15,7 @@ globalContainer.register({
     olaMapsService:asClass(OlaMapsService),
     // olaService:asClass(OlaService),
     // uberService:asClass(UberService),
-    cabsService:asClass(CabsService)
+    //cabsService:asClass(CabsService)
     
 })
 

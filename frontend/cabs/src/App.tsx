@@ -11,7 +11,8 @@ function App() {
       if(tabs.length===0)
       chrome.tabs.create({url:chrome.runtime.getURL('index.html')})
     })
-    return globalContainer.resolve("cabsService")});
+    //return globalContainer.resolve("cabsService")
+     });
 
   return (
     <>
