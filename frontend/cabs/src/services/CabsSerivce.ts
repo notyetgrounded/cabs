@@ -6,10 +6,10 @@ import { CabVendors } from "../enum/CabVendors.enum";
 
 export default class CabsService {
   private olaService: OlaService;
-  private uberService: UberService;
+ // private uberService: UberService;
   constructor() {
     this.olaService = new OlaService();
-    this.uberService = new UberService();
+    //this.uberService = new UberService();
     // of([])
     //   .pipe(
     //     delay(3000),
@@ -34,7 +34,7 @@ export default class CabsService {
   }
 
   getCabs(source: any,destination:any){
-    return merge(this.olaService.getCabs(source,destination),this.uberService.getCabs(source,destination)); 
+    return this.olaService.getCabs(source,destination); 
   }
 
   //todo: implemention not done
@@ -42,7 +42,7 @@ export default class CabsService {
     if(vendor === CabVendors.OLA){
       return this.olaService.bookCab(source,destination,rideCategory,fareId)
     }else{
-      return this.uberService.bookCab(source,destination, rideCategory)
+    //  return this.uberService.bookCab(source,destination, rideCategory)
     }
   }
 }
