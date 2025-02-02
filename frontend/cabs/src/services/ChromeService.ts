@@ -15,7 +15,7 @@ export class ChromeService {
   private getOrCreateTab(baseUrl: string) {
     return from(chrome.tabs.query({ url: baseUrl })).pipe(
       switchMap((tabs) => {
-        console.log("tab count ", tabs.length, baseUrl);
+        console.log("tab count ", tabs.length, baseUrl,tabs);
         if (tabs.length > 0) return of(tabs[0]);
         return from(chrome.tabs.create({ url: baseUrl }));
       })

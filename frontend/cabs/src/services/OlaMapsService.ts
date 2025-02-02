@@ -1,7 +1,7 @@
 
 import { OlaMaps } from "../assets/OlaMaps/OlaMapsWebSDK";
 
-const API_Key = "";
+const API_Key = "AVA6CuSIEmBYsWYOtnrc1D5ou5rOpoiMH7izgU1e";
 
 export class OlaMapsService {
   constructor(){}
