@@ -82,7 +82,7 @@ export default function Location(props: any) {
           // active={setSourceMarkerActive}
         ></SearchLocation>
         {source !== null && destination !== null && (
-          <Button onClick={() => props.UpdateCoordinates(destination, source)}>
+          <Button onClick={() => props.updateCoordinates(destination, source)}>
             check pricing
           </Button>
         )}

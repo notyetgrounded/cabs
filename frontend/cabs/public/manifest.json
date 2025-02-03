@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Two-way communication between content and background scripts using Promise and chrome.runtime.connect",
   "permissions": ["tabs", "debugger", "scripting","cookies"],
-  "host_permissions": [ "<all_urls>"],
+  "host_permissions": [ "<all_urls>", "https://*.uber.com/*","https://*.uber.com/go/home"],
   "action": {
     "default_popup": "index.html"
   }
