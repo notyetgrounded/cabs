@@ -1,10 +1,9 @@
 import { LngLat } from "maplibre-gl";
-import { ChromeService } from "./ChromeService";
-import globalContainer from "./DependencyContainer";
-import { map, tap, switchMap, of, retry, shareReplay } from "rxjs";
-import { OlaGetCabs } from "../models/OlaGetCabs.model";
+import { map, switchMap, shareReplay } from "rxjs";
 import { GetCabsRespose } from "../models/GetCabs.model";
+import { OlaGetCabs } from "../models/OlaGetCabs.model";
 import { OlaPreBook } from "../models/OlaPreBook.model";
+import { ChromeService } from "./ChromeService";
 
 export default class OlaService {
   private netorkManager!: ChromeService;
@@ -26,7 +25,7 @@ export default class OlaService {
   private transformOlaResponse(olaResponse: OlaGetCabs): GetCabsRespose {
     return {
       vendorName: "Ola",
-      rides: olaResponse.data.categories,
+      rides: olaResponse.data.p2p.categories,
       error: olaResponse.error,
     };
   }

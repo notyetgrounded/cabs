@@ -86,5 +86,5 @@ interface RVWebCommonProductsResponse {
 }
 
 export interface UberGetCabs {
-  data: RVWebCommonProductsResponse;
+  data: {products: RVWebCommonProductsResponse};
 }
