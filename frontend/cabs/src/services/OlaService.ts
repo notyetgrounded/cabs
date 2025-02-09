@@ -1,11 +1,9 @@
 import { LngLat } from "maplibre-gl";
-import { ChromeService } from "./ChromeService";
-import globalContainer from "./DependencyContainer";
-import { map, tap, switchMap, of, retry, shareReplay } from "rxjs";
-import { OlaGetCabs } from "../models/OlaGetCabs.model";
+import { map, switchMap, shareReplay } from "rxjs";
 import { GetCabsRespose } from "../models/GetCabs.model";
+import { OlaGetCabs } from "../models/OlaGetCabs.model";
 import { OlaPreBook } from "../models/OlaPreBook.model";
-import { Predictions } from "./OlaMapsService";
+import { ChromeService } from "./ChromeService";
 
 export default class OlaService {
   private netorkManager!: ChromeService;
@@ -17,17 +15,17 @@ export default class OlaService {
     this.netorkManager.initilize(this.url).subscribe();
   }
 
-  getCabs(source: Predictions | null, destination: Predictions | null) {
+  getCabs(source: LngLat, destination: LngLat) {
     return this.netorkManager
       .fetch<OlaGetCabs>(
-        `https://book.olacabs.com/data-api/category-fare/p2p?pickupLat=${source?.geometry?.location?.lat}&pickupLng=${source?.geometry?.location?.lng}&pickupMode=NOW&dropLat=${destination?.geometry?.location?.lat}&dropLng=${destination?.geometry?.location?.lng}&silent=false&suggestPickup=true`
+        `https://book.olacabs.com/data-api/category-fare/p2p?pickupLat=${source.lat}&pickupLng=${source.lng}&pickupMode=NOW&dropLat=${destination.lat}&dropLng=${destination.lng}&silent=false&suggestPickup=true`
       )
       .pipe(map((data) => this.transformOlaResponse(data)));
   }
   private transformOlaResponse(olaResponse: OlaGetCabs): GetCabsRespose {
     return {
       vendorName: "Ola",
-      rides: olaResponse.data.categories,
+      rides: olaResponse.data.p2p.categories,
       error: olaResponse.error,
     };
   }

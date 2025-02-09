@@ -1,5 +1,4 @@
 import { from, map, of, switchMap, tap } from "rxjs";
-import content from "./Content";
 
 export class ChromeService {
   private tabId: number = 0;

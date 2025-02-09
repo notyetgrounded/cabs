@@ -1,14 +1,15 @@
 import { useState } from "react";
-import CabSelection from "../components/CabSelection";
 import Location from "../components/Location";
 import CabService from "../services/CabsSerivce";
-import { LngLat } from "maplibre-gl";
 import { GetCabsRespose } from "../models/GetCabs.model";
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import { LngLat } from "maplibre-gl";
+import CabSelection from "../components/CabSelection";
+import { Predictions } from "../services/OlaMapsService";
 
 export  function CabBooking() {
     const[source,setSource]= useState<LngLat|null>(null)
@@ -20,7 +21,7 @@ export  function CabBooking() {
     const handleClose = () => {
       setOpen(false);
     };
-    function updateCoordinates(source:LngLat,destination:LngLat){
+    function updateCoordinates(source:Predictions,destination:Predictions){
         // setSource(source);
         // setDestination(destination);
         cabService.getCabs(source, destination).subscribe((result) => {
